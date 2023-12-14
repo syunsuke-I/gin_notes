@@ -6,24 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/syunsuke-I/gin_notes/models"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 )
-
-var DB *gorm.DB
-
-func connectionDatabase() {
-	database, err := gorm.Open(mysql.Open("notes:tmp_pwd@tcp(127.0.0.1:3306)/notes?charset=utf8"), &gorm.Config{})
-	if err != nil {
-		panic("failed to connected to database!")
-	}
-
-	DB = database
-}
-
-func dbMigrate() {
-	DB.AutoMigrate(&models.Note{})
-}
 
 func main() {
 	r := gin.Default()
@@ -31,8 +14,8 @@ func main() {
 
 	r.LoadHTMLGlob("templates/**/**")
 
-	connectionDatabase()
-	dbMigrate()
+	models.ConnectionDatabase()
+	models.DbMigrate()
 
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "views/index.html", gin.H{
