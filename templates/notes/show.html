@@ -1,0 +1,31 @@
+{{ define "notes/show.html"}}
+    {{ template "layouts/header.html" .}}
+    <script>
+    function deleteNote(noteId) {
+      console.log(noteId)
+      fetch(`/notes/${noteId}` ,{
+          method: 'DELETE'
+      }).then(response => {
+          if (response.ok) {
+              console.log('Note deleted successfully');
+              window.location.href = `/notes`;
+          }
+      }).catch(error => console.error('Error:', "here" + error));
+    }
+    </script>
+    <div class="container mt-4">
+      <div class="list-group mb-4">
+        {{ range .}}
+          <div class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h1 class="mb-1">{{ .Name }}</h1>
+            </div>
+            <p class="mb-1">{{ .Content }}</p>
+            <p class="mb-1">{{ .CreatedAt }}</p>
+            <a class="btn btn-online-danger"  onclick="deleteNote({{.ID}})">DELETE</a>
+          </div>
+        {{ end }}
+      </div>
+    </div>
+    {{ template "layouts/footer.html" .}}
+{{ end }}
