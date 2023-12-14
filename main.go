@@ -27,7 +27,11 @@ func main() {
 	r.GET("/notes", controllers.NoteIndex)
 	r.GET("/notes/new", controllers.NotesNew)
 	r.POST("/notes", controllers.NotesCreate)
-
+	r.GET("/notes/:id", controllers.NotesShow)
+	r.DELETE("/notes/:id", controllers.NotesDelete)
+	r.DELETE("/notes/", controllers.NoteIndex)
+	r.GET("/notes/edit/:id", controllers.NoteGet)
+	r.POST("/notes/:id", controllers.NoteEdit)
 	log.Println("Server Started!")
 	r.Run() // Default Port 8080
 }

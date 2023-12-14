@@ -1,17 +1,26 @@
 {{ define "notes/index.html"}}
     {{ template "layouts/header.html" .}}
     <div class="container mt-4">
-      <h1 class="mb-4 text-center">ALL Notes</h1>
-      <ul>
+        <h1 class="mb-4 text-center">All Notes</h1>
         {{ with .notes }}
-          {{ range .}}
-            <li><td>{{ .Name }}</td></li>
-          {{ end }}
+          <div class="list-group mb-4">
+            {{ range .}}
+              <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{ .Name }}</h5>
+                </div>
+                <p class="mb-1">{{ .Content }}</p>
+                <a class="btn btn-online-primary" href="/notes/{{.ID}}">View Detail</a>
+                <a class="btn btn-online-primary" href="/notes/edit/{{.ID}}">Edit</a>
+              </div>
+            {{ end }}
+          </div>
+        {{ else }}
+          <p class="text-center">No notes available.</p>
         {{ end }}
-      </UL>
-      <p>
-        <a class="btn btn-outline-primary" href="/notes/new">New Notes</a>
-      </p>
+        <div class="text-center">
+          <a class="btn btn-outline-primary" href="/notes/new">New Note</a>
+        </div>
     </div>
     {{ template "layouts/footer.html" .}}
 {{ end }}
