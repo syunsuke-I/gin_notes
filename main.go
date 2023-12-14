@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/syunsuke-I/gin_notes/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -20,6 +21,10 @@ func connectionDatabase() {
 	DB = database
 }
 
+func dbMigrate() {
+	DB.AutoMigrate(&models.Note{})
+}
+
 func main() {
 	r := gin.Default()
 	r.Use(gin.Logger())
@@ -27,6 +32,7 @@ func main() {
 	r.LoadHTMLGlob("templates/**/**")
 
 	connectionDatabase()
+	dbMigrate()
 
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "views/index.html", gin.H{
