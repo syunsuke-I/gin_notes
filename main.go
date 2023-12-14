@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/syunsuke-I/gin_notes/controllers"
 	"github.com/syunsuke-I/gin_notes/models"
 )
 
@@ -22,6 +23,9 @@ func main() {
 			"title": "NOTE APP",
 		})
 	})
+
+	r.GET("/notes", controllers.NoteIndex)
+	r.GET("/notes/new", controllers.NotesNew)
 
 	log.Println("Server Started!")
 	r.Run() // Default Port 8080

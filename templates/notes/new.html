@@ -1,0 +1,26 @@
+{{ define "notes/new.html"}}
+    {{ template "layouts/header.html" .}}
+    <div class="container mt-4">
+        <h1 class="mb-4 text-center">New Notes</h1>
+        <form class="row g-3 needs-validation" action="/notes" method="POST" novalidate>
+            <div class="col-md-6">
+                <label for="name" class="form-label">Title</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+                <div class="invalid-feedback">
+                    Please provide a title.
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label for="content" class="form-label">Content</label>
+                <textarea class="form-control" id="content" rows="5" name="content" required></textarea>
+                <div class="invalid-feedback">
+                    Please enter the content of the note.
+                </div>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+    {{ template "layouts/footer.html" .}}
+{{ end }}
