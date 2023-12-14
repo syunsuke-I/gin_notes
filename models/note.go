@@ -17,6 +17,12 @@ type Note struct {
 
 func NotesAll() *[]Note {
 	var notes []Note
-	DB.Where("deleted at is NULL").Order("updated at desc").Find(&notes)
+	DB.Where("deleted_at is NULL").Order("updated_at desc").Find(&notes)
 	return &notes
+}
+
+func NoteCreate(name string, content string) *Note {
+	entry := Note{Name: name, Content: content}
+	DB.Create(&entry)
+	return &entry
 }
